@@ -52,10 +52,10 @@ def buscar():
     busca = input("Digite o nome do elemento que você deseja buscar ou a posição do mesmo: ")
 
     try:
-            for indice in range(0,len(nome)):
-                if busca == nome[indice]:
-                    print(f"Nome.{indice + 1}: {nome[indice]}")
-                    menu()
+        for indice in range(0,len(nome)):
+            if busca == nome[indice]:
+                print(f"Nome.{indice + 1}: {nome[indice]}")
+                menu()
     except:
         print("Erro, tente novamente!")
 
@@ -67,23 +67,21 @@ def alterar(elemento):
     nome[elemento] = input("Digite o novo valor do elemento: ")
 
 def menu():
+    menu = input('''Digite uma opção: 
+    1 - Alterar Elemento
+    2 - Excluir Elemento
+    X - Voltar para o menu
 
-        menu = input('''Digite uma opção: 
-        1 - Alterar Elemento
-        2 - Excluir Elemento
-        X - Voltar para o menu
-
-        :''')
-        print("")
-        if menu == '1':
-            alterar()
-        elif menu == '2':
-            excluir()
-        elif menu == 'X':
-            opcao() 
-        else:
-            print("Opção inválida, tente novamente!")
-
+    :''')
+    print("")
+    if menu == '1':
+        alterar()
+    elif menu == '2':
+        excluir()
+    elif menu == 'X':
+        opcao() 
+    else:
+        print("Opção inválida, tente novamente!")
 
 while True:
     print("")
