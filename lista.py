@@ -6,8 +6,7 @@ def opcao():
     1 - Imprimir Dados
     2 - Inserir Dados
     3 - Buscar Dados
-    4 - Remover Dados
-    5 - Sair
+    X - Sair
     
     :''')
     print("")
@@ -17,9 +16,7 @@ def opcao():
         inserir()
     elif opcao == '3':
         buscar()
-    elif opcao == '4':
-        remover()
-    elif opcao == '5':
+    elif opcao == 'X':
         exit() 
     else:
         print("Opção inválida, tente novamente!")
@@ -63,9 +60,11 @@ def buscar():
         print("Erro, tente novamente!")
 
 
-def remover(valor):
-    del[nome[valor]]
+def excluir(elemento):
+    del[nome[elemento]]
 
+def alterar(elemento):
+    nome[elemento] = input("Digite o novo valor do elemento: ")
 
 def menu():
 
@@ -77,9 +76,9 @@ def menu():
         :''')
         print("")
         if menu == '1':
-            imprimir()
+            alterar()
         elif menu == '2':
-            inserir()
+            excluir()
         elif menu == 'X':
             opcao() 
         else:
