@@ -1,6 +1,5 @@
 nome = ['Carlos','Carolina','Pedro','Rodrigo','Eduardo','Nicolas','Miguel']
 
-
 def opcao():
     opcao = input('''Digite uma opção: 
     1 - Imprimir Dados
@@ -27,20 +26,21 @@ def imprimir():
     print("")
 
     try:
-        if opcao_imprimir == 'todos':
+        if opcao_imprimir.upper() == 'TODOS':
             for indice in range(0,len(nome)):
                 print(f"Nome.{indice + 1}: {nome[indice]}")
         else:
             print(f"Nome.{int(opcao_imprimir)}: {nome[int(opcao_imprimir) - 1]}")
     except:
         print("Ocorreu um erro, tente novamente!")
+        exit()
 
 
 def inserir():
     indice = input("Digite a posição em que você quer inserir o valor [escreva 'ultima' para inserir no final da lista]: ")
     valor = input("Digite o valor que você quer inserir: ")
     try:
-        if indice == 'ultima':
+        if indice.upper() == 'ULTIMA':
             nome.append(valor)
         else:
             nome.insert(int(indice) - 1,valor)
@@ -55,29 +55,33 @@ def buscar():
         for indice in range(0,len(nome)):
             if busca == nome[indice]:
                 print(f"Nome.{indice + 1}: {nome[indice]}")
-                menu()
+                elemento_busca = indice
     except:
         print("Erro, tente novamente!")
+        exit()
+
+    menu(elemento_busca)
 
 
 def excluir(elemento):
     del[nome[elemento]]
+    print("Elemento excluido com sucesso!")
 
 def alterar(elemento):
     nome[elemento] = input("Digite o novo valor do elemento: ")
+    print("Elemento alterado com sucesso!")
 
-def menu():
+def menu(x):
     menu = input('''Digite uma opção: 
     1 - Alterar Elemento
     2 - Excluir Elemento
     X - Voltar para o menu
-
     :''')
     print("")
     if menu == '1':
-        alterar()
+        alterar(x)
     elif menu == '2':
-        excluir()
+        excluir(x)
     elif menu == 'X':
         opcao() 
     else:
