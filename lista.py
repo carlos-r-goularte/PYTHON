@@ -15,11 +15,10 @@ def opcao():
         inserir()
     elif opcao == '3':
         buscar()
-    elif opcao == 'X':
+    elif opcao.upper() == 'X':
         exit() 
     else:
         print("Opção inválida, tente novamente!")
-
 
 def imprimir():
     opcao_imprimir = input("Digite o numero do índice que você quer imprimir, ou escreva 'todos' para imprimir todos os elementos: ")
@@ -33,8 +32,7 @@ def imprimir():
             print(f"Nome.{int(opcao_imprimir)}: {nome[int(opcao_imprimir) - 1]}")
     except:
         print("Ocorreu um erro, tente novamente!")
-        exit()
-
+        opcao()
 
 def inserir():
     indice = input("Digite a posição em que você quer inserir o valor [escreva 'ultima' para inserir no final da lista]: ")
@@ -47,21 +45,22 @@ def inserir():
     except:
         print("Erro, tente novamente!")
 
-
 def buscar():
     busca = input("Digite o nome do elemento que você deseja buscar ou a posição do mesmo: ")
 
     try:
-        for indice in range(0,len(nome)):
-            if busca == nome[indice]:
-                print(f"Nome.{indice + 1}: {nome[indice]}")
-                elemento_busca = indice
+        if not busca.isdigit():
+            for indice in range(0,len(nome)):
+                if busca == nome[indice]:
+                    print(f"Nome.{indice + 1}: {nome[indice]}")
+                    elemento_busca = indice
+        elif busca.isdigit():
+            print(nome[int(busca)-1])
+            elemento_busca = int(busca)-1
     except:
-        print("Erro, tente novamente!")
-        exit()
+        print("Elemento não encontrado!")
 
     menu(elemento_busca)
-
 
 def excluir(elemento):
     del[nome[elemento]]
@@ -82,7 +81,7 @@ def menu(x):
         alterar(x)
     elif menu == '2':
         excluir(x)
-    elif menu == 'X':
+    elif menu.upper() == 'X':
         opcao() 
     else:
         print("Opção inválida, tente novamente!")
