@@ -57,11 +57,12 @@ def buscar():
         elif busca.isdigit():
             print(nome[int(busca)-1])
             elemento_busca = int(busca)-1
+        
+        menu(elemento_busca)
+        
     except:
         print("Elemento não encontrado!")
-
-    menu(elemento_busca)
-
+        
 def excluir(elemento):
     del[nome[elemento]]
     print("Elemento excluido com sucesso!")
