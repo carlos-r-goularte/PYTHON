@@ -20,16 +20,19 @@ def iniciar():
     palavra_secreta = input("\n\nDigite a palavra secreta: ")
     dica = input("Digite uma dica: ")
     chances = limitar(palavra_secreta)
-    
-    print("\n\n==============================================================================")
-    print(f"Você tem [{chances}] chances para digitar letras e tentar descobrir a palavra secreta!")
-    print(f"                             A dica é: {dica}")
-    print("==============================================================================\n\n")
+    letra_digitada = []
+    secreto_temporario = '*' * len(palavra_secreta)
 
-    while chances > 0:
-        
+    while chances >= 0:
+
+        print("\n\n==============================================================================")
+        print(f"Você tem [{chances}] chances para digitar letras e tentar descobrir a palavra secreta!")
+        print(f"                             A dica é: {dica}")
+        print(f"                                 {secreto_temporario}")
+        print("==============================================================================\n\n")
+
         letra = input("Digite uma letra: ")
-        letra_digitada = []
+
         try:
             if len(letra) > 1 or not letra.isalpha():
                 print("Só é permitido digitar apenas [1] letra do alfabeto\n")
@@ -55,7 +58,6 @@ def iniciar():
             else:
                 secreto_temporario += '*'
         
-        print(secreto_temporario)
 
     print("\n---------------------------------------------------------------")
     print("Que pena! Você esgotou o número de tentativas, tente novamente!")
@@ -66,11 +68,9 @@ def limitar(palavra_secreta):
     chances = ceil(log10(len(palavra_secreta))*len(palavra_secreta)/3)
     return chances
 
-def imprimir_letra():
-    pass
-
 def placar():
     pass
 
 while True:
     menu()
+
