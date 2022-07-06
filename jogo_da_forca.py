@@ -1,3 +1,5 @@
+from math import log10,ceil
+
 def menu():
     menu = input('''\nDigite uma opção: 
     1 - Inicar Jogo
@@ -16,13 +18,12 @@ def menu():
 
 def iniciar():
     palavra_secreta = input("\n\nDigite a palavra secreta: ")
-    if palavra_secreta > 6:
-        chances = 4
-    elif palavra_secreta <=5:
-        chances = 2
-
+    dica = input("Digite uma dica: ")
+    chances = limitar(palavra_secreta)
+    
     print("\n\n==============================================================================")
     print(f"Você tem [{chances}] chances para digitar letras e tentar descobrir a palavra secreta!")
+    print(f"                             A dica é: {dica}")
     print("==============================================================================\n\n")
 
     while chances > 0:
@@ -60,6 +61,10 @@ def iniciar():
     print("Que pena! Você esgotou o número de tentativas, tente novamente!")
     print("---------------------------------------------------------------\n")
     menu()
+
+def limitar(palavra_secreta):
+    chances = ceil(log10(len(palavra_secreta))*len(palavra_secreta)/3)
+    return chances
 
 def imprimir_letra():
     pass
