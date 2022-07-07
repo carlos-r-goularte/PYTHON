@@ -23,7 +23,7 @@ def iniciar():
     letra_digitada = []
     secreto_temporario = '*' * len(palavra_secreta)
 
-    while chances >= 0:
+    while True:
 
         print("\n\n==============================================================================")
         print(f"Você tem [{chances}] chances para digitar letras e tentar descobrir a palavra secreta!")
@@ -44,12 +44,19 @@ def iniciar():
         letra_digitada.append(letra)
 
         if letra in palavra_secreta:
-            print(f"\nEba! Você acertou uma letra! Restam mais {chances - 1} tentativas\n")
-            chances -= 1
+            if chances == 1:
+                print("Última chance para descobrir mais uma letra: ")
+                chances -= 1
+            else:
+                print(f"\nEba! Você acertou uma letra! Restam mais {chances - 1} tentativas\n")
+                chances -= 1
         else:
             print(f"\nQue pena! Você errou a letra, mas ainda restam mais {chances - 1} tentativas\n")
             chances -= 1
             letra_digitada.pop()
+
+        if chances == 0:
+            break
 
         secreto_temporario = ''
         for letra_secreta in palavra_secreta:
@@ -57,7 +64,13 @@ def iniciar():
                 secreto_temporario += letra_secreta
             else:
                 secreto_temporario += '*'
-        
+
+    print("\n\n========================================")
+    print(f"Você esgotou o número de tentativas!")
+    print(f"          A dica é: {dica}")
+    print(f"        {secreto_temporario}")
+    print("===========================================\n\n")
+    palavra = input("Digite qual é a palavra secreta: ")
 
     print("\n---------------------------------------------------------------")
     print("Que pena! Você esgotou o número de tentativas, tente novamente!")
@@ -73,4 +86,5 @@ def placar():
 
 while True:
     menu()
+
 
