@@ -111,12 +111,33 @@ class DoublyLinkedList:
                     if index == position - 2:
                         positionAux.next = positionAux.next.next
                         positionAux.next.previous = positionAux
+                        self.numElements -= 1
                     else:
                         positionAux = positionAux.next
-                    
 
     def removeElement(self,element):
-        pass
+        self.exist = False
+        if element != None:
+            if self.isEmpty():
+                print("\nEmpty List!\n")
+            elif self.tail.data == element:
+                self.removeTail()
+            elif self.head.data == element:
+                self.removeHead()
+            else:
+                nodeAux = self.head.next
+                for index in range(self.numElements-2):
+                    if nodeAux.data == element:
+                        nodeAux.previous.next = nodeAux.next
+                        nodeAux.next.previous = nodeAux.previous
+                        self.numElements -= 1
+                        self.exist = True
+                    else:
+                        nodeAux = nodeAux.next
+                if self.exist == False:
+                    print(f"\nElement {element} does not exist in the list!\n")
+        else:
+            raise IndexError ("\nElement is null!\n")    
 
     def searchElement(self,element):
         if element != None:
@@ -247,7 +268,6 @@ dList.append(6)
 
 dList.printList(dList.head)
 
-
 print("REMOVE UM")
 dList.removePosition(1)
 dList.printList(dList.head)
@@ -256,11 +276,12 @@ print("REMOVE DOIS")
 dList.removePosition(2)
 dList.printList(dList.head)
 
-print("REMOVE TRES")
-dList.removePosition(3)
+
+
+dList.removeElement(4)
 dList.printList(dList.head)
 
 
-print("REMOVE DOIS")
-dList.removePosition(2)
+
+dList.removeElement(50)
 dList.printList(dList.head)
