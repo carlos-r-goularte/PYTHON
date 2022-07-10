@@ -26,7 +26,7 @@ class DoublyLinkedList:
                 self.tail = node
                 self.numElements += 1
         else:
-            raise IndexError ("\nElemento nulo ou vazio\n")
+            raise IndexError ("\nElement is null!\n")
 
     def insertHead(self,element):
         pass
@@ -48,7 +48,7 @@ class DoublyLinkedList:
     
     def printList(self,node):
         if self.isEmpty():
-            print("\nLISTA VAZIA\n")
+            print("\nEmpty List!\n")
         else:
             while (node is not None):
                 print(f"Element is: {node.data}")
@@ -56,7 +56,7 @@ class DoublyLinkedList:
     
     def printListInverse(self,node):
         if self.isEmpty():
-            print("\nLISTA VAZIA\n")
+            print("\nEmpty List!\n")
         else:
             while (node is not None):
                 print(f"Element is: {node.data}")
@@ -66,12 +66,16 @@ class DoublyLinkedList:
     def printNumberElementsList(self):
         print("\nThe number of elements is: " + str(self.numElements))
 
-lista = DoublyLinkedList()
+dList = DoublyLinkedList()
 
-lista.append(10)
-lista.append(15)
-lista.append(20)
+# Teste Append
+#dList.append(10)
+#dList.append(15)
+#dList.append(20)
 
-lista.printList(lista.head)
+# Teste Print List
+#dList.printList(dList.head)
+#dList.printListInverse(dList.tail)
 
-lista.printNumberElementsList()
+
+#dList.printNumberElementsList()
