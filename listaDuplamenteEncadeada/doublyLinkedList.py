@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from node import Node
 
 class DoublyLinkedList:
@@ -6,6 +5,7 @@ class DoublyLinkedList:
     def __init__(self):
         self.head = self.tail = None
         self.numElements = 0
+        self.exist = False
 
     def isEmpty(self):
         if self.head == self.tail == None:
@@ -96,9 +96,64 @@ class DoublyLinkedList:
 
     def remove(self,position):
         pass
+        
 
-    def search(self,element):
-        pass
+
+
+
+
+
+
+
+
+
+    def searchElement(self,element):
+        if element != None:
+            if self.isEmpty():
+                print("\nEmpty List!\n")
+            elif self.head.data == self.tail.data == element:
+                self.printData(self.head.data,1)
+            elif self.tail.data == element:
+                self.printData(self.tail.data,self.numElements)
+            elif self.head.data == element:
+                self.printData(self.head.data,1)
+            else:
+                nodeAux = self.head.next
+                for index in range(self.numElements-2):
+                    if nodeAux.data == element:
+                        self.printData(nodeAux.data,index + 2)
+                        self.exist = True
+                    else:
+                        nodeAux = nodeAux.next
+                if self.exist == False:
+                    print(f"\nElement {element} does not exist in the list!\n")
+        else:
+            raise IndexError ("\nElement is null!\n")     
+
+
+
+
+
+    def searchPosition(self,position):
+        if position != None:
+            if self.isEmpty():
+                print("\nEmpty List!\n")
+            elif position == self.numElements:
+                self.printData(self.tail.data,position)
+            elif position > self.numElements:
+                print(f"\nThe position {position} does not exist in the list!\n")
+            else:
+                positionAux = self.head
+                for index in range(self.numElements - 1):
+                    if index + 1 == position:
+                        self.printData(positionAux.data,position)
+                    positionAux = positionAux.next
+        else:
+            raise IndexError ("\nElement is null!\n")    
+
+    def printData(self,element,position):
+        print(f"Element exist in position: {position}")
+        print(f"Element is: {element}")
     
     def printList(self,node):
         if self.isEmpty():
@@ -133,12 +188,12 @@ dList = DoublyLinkedList()
 #dList.insertHead(50)
 
 # Test Append
-dList.append(1)
-dList.append(3)
-dList.append(4)
-dList.append(6)
-dList.insert(2,2)
-dList.insert(5,5)
+dList.append(10)
+dList.append(30)
+dList.append(40)
+dList.append(60)
+dList.insert(20,2)
+dList.insert(50,5)
 dList.insertHead(0)
 
 
@@ -164,3 +219,14 @@ dList.printList(dList.head)
 dList.printHead()
 dList.printTail()
 dList.printNumberElementsList()
+
+
+
+dList.searchElement(1)
+
+
+dList.searchPosition(1)
+dList.searchPosition(2)
+dList.searchPosition(3)
+dList.searchPosition(4)
+dList.searchPosition(10)
