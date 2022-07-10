@@ -1,3 +1,4 @@
+from turtle import pos
 from node import Node
 
 class DoublyLinkedList:
@@ -94,18 +95,28 @@ class DoublyLinkedList:
             self.head.previous = None
             self.numElements -= 1
 
-    def remove(self,position):
+    def removePosition(self,position):
+        if position != None:
+            if self.isEmpty():
+                print("\nEmpty List!\n")
+            elif position == self.numElements:
+                self.removeTail()  
+            elif position > self.numElements:
+                print(f"\nThe position {position} does not exist in the list!\n")
+            elif position == 1:
+                self.removeHead()
+            else:
+                positionAux = self.head
+                for index in range(self.numElements-2):
+                    if index == position - 2:
+                        positionAux.next = positionAux.next.next
+                        positionAux.next.previous = positionAux
+                    else:
+                        positionAux = positionAux.next
+                    
+
+    def removeElement(self,element):
         pass
-        
-
-
-
-
-
-
-
-
-
 
     def searchElement(self,element):
         if element != None:
@@ -129,10 +140,6 @@ class DoublyLinkedList:
                     print(f"\nElement {element} does not exist in the list!\n")
         else:
             raise IndexError ("\nElement is null!\n")     
-
-
-
-
 
     def searchPosition(self,position):
         if position != None:
@@ -188,23 +195,23 @@ dList = DoublyLinkedList()
 #dList.insertHead(50)
 
 # Test Append
-dList.append(10)
-dList.append(30)
-dList.append(40)
-dList.append(60)
-dList.insert(20,2)
-dList.insert(50,5)
-dList.insertHead(0)
+#dList.append(10)
+#dList.append(30)
+#dList.append(40)
+#dList.append(60)
+#dList.insert(20,2)
+#dList.insert(50,5)
+#dList.insertHead(0)
 
 
-dList.printList(dList.head)
-dList.printHead()
-dList.printTail()
-dList.printNumberElementsList()
+#dList.printList(dList.head)
+#dList.printHead()
+#dList.printTail()
+#dList.printNumberElementsList()
 
 
 
-dList.removeHead()
+''''dList.removeHead()
 
 dList.printList(dList.head)
 dList.printHead()
@@ -218,15 +225,42 @@ dList.removeTail()
 dList.printList(dList.head)
 dList.printHead()
 dList.printTail()
-dList.printNumberElementsList()
+dList.printNumberElementsList()'''
 
 
 
-dList.searchElement(1)
+'''dList.searchElement(1)
 
 
 dList.searchPosition(1)
 dList.searchPosition(2)
 dList.searchPosition(3)
 dList.searchPosition(4)
-dList.searchPosition(10)
+dList.searchPosition(10)'''
+
+dList.append(1)
+dList.append(2)
+dList.append(3)
+dList.append(4)
+dList.append(5)
+dList.append(6)
+
+dList.printList(dList.head)
+
+
+print("REMOVE UM")
+dList.removePosition(1)
+dList.printList(dList.head)
+
+print("REMOVE DOIS")
+dList.removePosition(2)
+dList.printList(dList.head)
+
+print("REMOVE TRES")
+dList.removePosition(3)
+dList.printList(dList.head)
+
+
+print("REMOVE DOIS")
+dList.removePosition(2)
+dList.printList(dList.head)
