@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from node import Node
 
 class DoublyLinkedList:
@@ -18,7 +19,7 @@ class DoublyLinkedList:
         self.numElements += 1
 
     def append(self,element):
-        if element:
+        if element != None:
             if self.isEmpty():
                 self.insertEmptyList(element)
             else:
@@ -31,7 +32,7 @@ class DoublyLinkedList:
             raise IndexError ("\nElement is null!\n")
 
     def insertHead(self,element):
-        if element:
+        if element != None:
             if self.isEmpty():
                 self.insertEmptyList(element)
             else:
@@ -44,7 +45,7 @@ class DoublyLinkedList:
             raise IndexError ("\nElement is null!\n")
 
     def insert(self,element,position):
-        if element:
+        if element != None:
             if self.isEmpty():
                 self.insertEmptyList(element)
             else:
@@ -53,7 +54,7 @@ class DoublyLinkedList:
                 elif position == 1:
                     self.insertHead(element)
                 elif position == 0:
-                    print("Position does not exist!")
+                    print("\nPosition does not exist!\n")
                 else:
                     node = Node(element)
                     nodeAux = self.head
@@ -65,16 +66,35 @@ class DoublyLinkedList:
 
                     nodeAux.next.previous = node
                     nodeAux.next = node
+                    self.numElements += 1
         else:
             raise IndexError ("\nElement is null!\n")
                 
-    def removeTail(self,element):
-        pass
+    def removeTail(self):
+        if self.isEmpty():
+            print("\nEmpty List!\n")
+        elif self.head == self.tail:
+            print("There is only one [1] element!")
+            self.head = self.tail = None
+            self.numElements = 0
+        else:
+            self.tail = self.tail.previous
+            self.tail.next = None
+            self.numElements -= 1
 
-    def removeHead(self,element):
-        pass
+    def removeHead(self):
+        if self.isEmpty():
+            print("\nEmpty List!\n")
+        elif self.head == self.tail:
+            print("There is only one [1] element!")
+            self.head = self.tail = None
+            self.numElements = 0
+        else:
+            self.head = self.head.next
+            self.head.previous = None
+            self.numElements -= 1
 
-    def remove(self,element,position):
+    def remove(self,position):
         pass
 
     def search(self,element):
@@ -103,7 +123,7 @@ class DoublyLinkedList:
         print(f"Tail is: {self.tail.data}")
 
     def printNumberElementsList(self):
-        print("\nThe number of elements is: " + str(self.numElements))
+        print("\nThe number of elements is: " + str(self.numElements) + "\n\n")
 
 dList = DoublyLinkedList()
 
@@ -113,20 +133,34 @@ dList = DoublyLinkedList()
 #dList.insertHead(50)
 
 # Test Append
-dList.append(10)
-dList.append(15)
-dList.append(20)
-dList.append(30)
+dList.append(1)
+dList.append(3)
+dList.append(4)
+dList.append(6)
+dList.insert(2,2)
+dList.insert(5,5)
+dList.insertHead(0)
 
-dList.insert(100,0)
 
-# Test Print List
 dList.printList(dList.head)
-#dList.printListInverse(dList.tail)
-
-
-
 dList.printHead()
 dList.printTail()
+dList.printNumberElementsList()
 
+
+
+dList.removeHead()
+
+dList.printList(dList.head)
+dList.printHead()
+dList.printTail()
+dList.printNumberElementsList()
+
+
+
+dList.removeTail()
+
+dList.printList(dList.head)
+dList.printHead()
+dList.printTail()
 dList.printNumberElementsList()
