@@ -1,4 +1,3 @@
-from turtle import pos
 from node import Node
 
 class DoublyLinkedList:
