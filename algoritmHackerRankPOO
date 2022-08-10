@@ -1,0 +1,39 @@
+import math
+
+class Rectangle:
+    def __init__(self,b,h):
+        self.base = b
+        self.height = h
+        
+    def areaRectangle(self,base,height):
+        return self.base * self.height
+    
+class Circle:
+    def __init__(self,r):
+        self.radius = r
+        
+    def areaCircle(self,radius):
+        return math.pi*(self.radius**2)
+        
+if __name__ == '__main__':
+    
+    q = int(input())
+    queries = []
+    for _ in range(q):
+        args = input().split()
+        shape_name, params = args[0], tuple(map(int, args[1:]))
+        
+        if shape_name == "rectangle":
+        
+            base, heigh = params[0], params[1]
+            shapeR = Rectangle(base,heigh)
+            print("{:.2f}".format(shapeR.areaRectangle(base,heigh)))
+            
+        elif shape_name == "circle":
+            
+            radius = params[0]
+            shapeC = Circle(radius)
+            print("{:.2f}".format(shapeC.areaCircle(radius)))
+            
+        else:
+            raise ValueError("invalid shape type")
