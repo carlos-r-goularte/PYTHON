@@ -45,71 +45,82 @@ class Application:
 
         #=========================================================================================================================================#
         
-        self.lb_result = Label(frameOperations,fg='white',bg="#1f1f1f",font=('Arial 20 bold'),anchor='e',height=5)
-        self.lb_result.grid(row=0,columnspan=4,sticky='wens')
-        self.lb_result.propagate(0)
+        self.lb_wait = Label(frameOperations,fg='#9c9c9c',bg="#1f1f1f",font=('Helvetica 14'),pady=30,anchor='e')
+        self.lb_wait.grid(row=0,columnspan=4,sticky='news')
 
+        self.lb_result = Label(frameOperations,fg='white',bg="#1f1f1f",font=('Helvetica 20'),anchor='e',height=3)
+        self.lb_result.grid(row=1,columnspan=4,sticky='news')
 
-        self.bt_percent.grid(row=1, column=0)
-        self.bt_clearEntry.grid(row=1,column=1)
-        self.bt_clear.grid(row=1,column=2)
-        self.bt_back.grid(row=1,column=3)
+        self.bt_percent.grid(row=2, column=0)
+        self.bt_clearEntry.grid(row=2,column=1)
+        self.bt_clear.grid(row=2,column=2)
+        self.bt_back.grid(row=2,column=3)
 
-        self.bt_inverse.grid(row=2, column=0)
-        self.bt_pow.grid(row=2, column=1)
-        self.bt_sqrt.grid(row=2, column=2)
-        self.bt_div.grid(row=2, column=3)
+        self.bt_inverse.grid(row=3, column=0)
+        self.bt_pow.grid(row=3, column=1)
+        self.bt_sqrt.grid(row=3, column=2)
+        self.bt_div.grid(row=3, column=3)
 
-        self.bt_seven.grid(row=3, column=0)
-        self.bt_eight.grid(row=3, column=1)
-        self.bt_nine.grid(row=3, column=2)
-        self.bt_mult.grid(row=3, column=3)
+        self.bt_seven.grid(row=4, column=0)
+        self.bt_eight.grid(row=4, column=1)
+        self.bt_nine.grid(row=4, column=2)
+        self.bt_mult.grid(row=4, column=3)
 
-        self.bt_four.grid(row=4, column=0)
-        self.bt_five.grid(row=4, column=1)
-        self.bt_six.grid(row=4, column=2)
-        self.bt_sub.grid(row=4, column=3,sticky='wens')
+        self.bt_four.grid(row=5, column=0)
+        self.bt_five.grid(row=5, column=1)
+        self.bt_six.grid(row=5, column=2)
+        self.bt_sub.grid(row=5, column=3,sticky='news')
 
-        self.bt_one.grid(row=5, column=0)
-        self.bt_two.grid(row=5, column=1)
-        self.bt_three.grid(row=5, column=2)
-        self.bt_add.grid(row=5, column=3)
+        self.bt_one.grid(row=6, column=0)
+        self.bt_two.grid(row=6, column=1)
+        self.bt_three.grid(row=6, column=2)
+        self.bt_add.grid(row=6, column=3)
 
-        self.bt_sign.grid(row=6, column=0)
-        self.bt_zero.grid(row=6, column=1)
-        self.bt_score.grid(row=6, column=2)
-        self.bt_equal.grid(row=6, column=3)
+        self.bt_sign.grid(row=7, column=0)
+        self.bt_zero.grid(row=7, column=1)
+        self.bt_score.grid(row=7, column=2)
+        self.bt_equal.grid(row=7, column=3)
 
     def _display(self, value):
         
         nums = ('0','1','2','3','4','5','6','7','8','9')
 
-        if value in nums and len(self.display) < 12:
+        if value in nums and len(self.display) < 17:
                 self.display.append(value)
-                self.lb_result['text'] = self.display
+                strValue = "".join(self.display)
+                self.lb_result['text'] = strValue
         
         if value == '.' and self.score == False:
             self.display.append(value)
-            self.lb_result['text'] = self.display
+            strValue = "".join(self.display)
+            self.lb_result['text'] = strValue
             self.score = True
 
         if value == 'clear':
-            self.display = ['0']
-            self.lb_result['text'] = self.display
+            self.lb_result['text'] = '0'
+            self.lb_wait['text'] = ''
             self.display = []
+            self.score = True
+
+        if value == 'clearEntry':
+            self.lb_result['text'] = '0'
+            self.display = []
+            self.score = True
+
+        if value == 'equal':
+            pass
 
         if value == 'back':
             try:
                 self.display.pop()
+                strValue = "".join(self.display)
                 if len(self.display) == 0:
-                    self.display = ['0']
-                    self.lb_result['text'] = self.display
+                    self.lb_result['text'] = '0'
                     self.display = []
                 else:
-                    self.lb_result['text'] = self.display
+                    self.lb_result['text'] = strValue
             except:
-                self.display = ['0']
-                self.lb_result['text'] = self.display
+                self.lb_result['text'] = '0'
 
 def main():
     root = Tk()
