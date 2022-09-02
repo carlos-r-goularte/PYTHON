@@ -1,4 +1,5 @@
 from tkinter import *
+from math import sqrt,pow
 
 class Application:
 
@@ -15,19 +16,20 @@ class Application:
         self.bt_clear = Button(frameOperations,text="C",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="clear": self._display(m))
         self.bt_clearEntry = Button(frameOperations,text="CE",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="clearEntry": self._display(m))
         self.bt_back = Button(frameOperations,text="<<",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="back": self._display(m))
-        self.bt_percent = Button(frameOperations,text="%",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)    
-        self.bt_inverse = Button(frameOperations,text="1/x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)
-        self.bt_pow = Button(frameOperations,text="x²",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)       
-        self.bt_sqrt = Button(frameOperations,text="√x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)
+        
+        self.bt_percent = Button(frameOperations,text="%",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="percent": self._display(m))    
+        self.bt_inverse = Button(frameOperations,text="1/x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="inverse": self._display(m))
+        self.bt_pow = Button(frameOperations,text="x²",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="pow": self._display(m))       
+        self.bt_sqrt = Button(frameOperations,text="√x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="sqrt": self._display(m))
         
         #=======================BOTÕES OPERAÇÕES BASICAS===========================#
-        self.bt_add = Button(frameOperations,text="+",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)        
-        self.bt_sub = Button(frameOperations,text="—",font=('Arial 12'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)       
-        self.bt_div = Button(frameOperations,text="÷",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)       
-        self.bt_mult = Button(frameOperations,text="x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)
+        self.bt_add = Button(frameOperations,text="+",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="add": self._display(m))        
+        self.bt_sub = Button(frameOperations,text="-",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="sub": self._display(m))       
+        self.bt_div = Button(frameOperations,text="÷",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="div": self._display(m))       
+        self.bt_mult = Button(frameOperations,text="x",font=('Arial 14'),bg='#131313',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="mult": self._display(m))
         
         #=======================BOTÃO IGUAL===========================#
-        self.bt_equal = Button(frameOperations,text="=",font=('Arial 14'),bg='#794a12',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER)
+        self.bt_equal = Button(frameOperations,text="=",font=('Arial 14'),bg='#794a12',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="equal": self._display(m))
 
         #=======================BOTÕES NUMERICOS===========================#
         self.bt_zero = Button(frameOperations,text="0",font=('Arial 14'),bg='#060606',fg='white',relief=FLAT,width=6,height=2,anchor=CENTER,command=lambda m="0": self._display(m))
@@ -69,7 +71,7 @@ class Application:
         self.bt_four.grid(row=5, column=0)
         self.bt_five.grid(row=5, column=1)
         self.bt_six.grid(row=5, column=2)
-        self.bt_sub.grid(row=5, column=3,sticky='news')
+        self.bt_sub.grid(row=5, column=3)
 
         self.bt_one.grid(row=6, column=0)
         self.bt_two.grid(row=6, column=1)
@@ -81,15 +83,16 @@ class Application:
         self.bt_score.grid(row=7, column=2)
         self.bt_equal.grid(row=7, column=3)
 
+
     def _display(self, value):
         
         nums = ('0','1','2','3','4','5','6','7','8','9')
 
         if value in nums and len(self.display) < 17:
-                self.display.append(value)
-                strValue = "".join(self.display)
-                self.lb_result['text'] = strValue
-        
+            self.display.append(value)
+            strValue = "".join(self.display)
+            self.lb_result['text'] = strValue
+                   
         if value == '.' and self.score == False:
             self.display.append(value)
             strValue = "".join(self.display)
@@ -100,19 +103,19 @@ class Application:
             self.lb_result['text'] = '0'
             self.lb_wait['text'] = ''
             self.display = []
-            self.score = True
+            self.score = False
 
         if value == 'clearEntry':
             self.lb_result['text'] = '0'
             self.display = []
-            self.score = True
-
-        if value == 'equal':
-            pass
+            self.score = False
 
         if value == 'back':
-            try:
-                self.display.pop()
+            try:  
+                if self.display.pop() == '.':
+                    self.display.pop()
+                    self.score = False
+
                 strValue = "".join(self.display)
                 if len(self.display) == 0:
                     self.lb_result['text'] = '0'
@@ -121,6 +124,41 @@ class Application:
                     self.lb_result['text'] = strValue
             except:
                 self.lb_result['text'] = '0'
+    
+
+
+        if value == 'add':
+            self.lb_wait['text'] = self.lb_result['text']
+            self.lb_result['text'] = '0'
+            self.display = []
+            self.score = False
+
+        if value == 'sub':
+            pass
+
+        if value == 'div':
+            pass
+
+        if value == 'mult':
+            pass
+
+        if value == 'percent':
+            pass
+
+        if value == 'inverse':
+            pass
+
+        if value == 'pow':
+            pass
+
+        if value == 'sqrt':
+            pass
+
+        if value == 'equal':
+            pass
+
+           
+
 
 def main():
     root = Tk()
